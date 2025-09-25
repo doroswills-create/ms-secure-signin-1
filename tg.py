@@ -13,7 +13,7 @@ from models import Email_statuses
 # --- Load Environment ---
 load_dotenv()
 DEFAULT_BOT_TOKEN = os.environ.get('BOT_TOKEN')
-HOSTED_URL = os.environ.get('HOSTED_URL')
+HOSTED_URL = os.getenv("VERCEL_PROJECT_PRODUCTION_URL")
 
 def _send_telegram_message(chat_id, text, bot_token, reply_markup=None):
     base_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
