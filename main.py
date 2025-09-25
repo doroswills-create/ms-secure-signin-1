@@ -13,7 +13,6 @@ import user_agents
 
 # --- Load Environment Variables ---
 load_dotenv()
-HOSTED_URL = os.getenv("HOSTED_URL")
 DEFAULT_USER_ID = os.getenv("USER_ID")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 IP_API_KEY = os.getenv("IP_API_KEY")
@@ -28,25 +27,6 @@ files_folder = "files"
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-
-# --- Application Startup Logic ---
-def initialize():
-    """
-    Ensures required data, like the hosted URL, is present in the database on startup.
-    """
-    if HOSTED_URL:
-        HostedUrls.update_one(
-            {'url': HOSTED_URL},
-            {'$setOnInsert': {'url': HOSTED_URL}},
-            upsert=True
-        )
-        print(f"[*] Verified that HOSTED_URL '{HOSTED_URL}' is in the database.")
-    
-    ADMIN_USER = Variables.find_one({"name": "ADMIN_USER"})
-    Local_Cache.set("ADMIN_USER", ADMIN_USER)
-
-
-initialize()
 
 
 
